@@ -1,0 +1,51 @@
+use school;
+desc students;
+-- insert records into students table
+INSERT INTO students values(101,"teja","male",6,11,"2015-01-01");
+INSERT INTO students values("sowmya","female",11,"2015-01-01");
+
+-- approach 2
+INSERT INTO students(name,gender,class,age,date_of_birth)
+values("sowmya","female",7,13,"2004-08-13"),("teja","male",8,12,"2005-03-13");
+        
+-- fetch table data
+SELECT * FROM STUDENTS;
+DESC STUDENTS;
+insert into students(NAME,gender,class,age,date_of_birth)
+values("sowmya","female",5,12,"13-03-2005");
+CREATE TABLE MARKS (
+    STDID INT,
+    S1 TINYINT,
+    S2 TINYINT,
+    S3 TINYINT,
+    PERCENTAGE DECIMAL(3,2)
+);
+-- insert records into marks
+INSERT INTO MARKS(STDID, S1, S2, S3, PERCENTAGE)
+VALUES
+(101, 95, 93, 94, 94.00),
+(102, 85, 90, 88, 87.67),
+(103, 78, 82, 80, 80.00);
+SELECT * FROM MARKS;
+-- UPDATE 5 MARKS FOR 101 STUDENTS FOR S1 SUBJECT
+SELECT * FROM MARKS
+WHERE STDID = 101;
+UPDATE STUDENTS SET S1 = S1 + 5
+WHERE STDID = 101;
+SET SQL_SAFE_UPDATES = 0;
+
+SELECT * FROM MARKS
+WHERE STDID = 102;
+TRUNCATE TABLE MARKS;
+-- UPDATE PERCENTAGE COLUMN AS DERIVED COLUMN
+ALTER TABLE MARKS MODIFY COLUMN PERCENTAGE FLOAT(4,2) generated always AS((S1+S2+S3)/3) STORED;
+SELECT * FROM MARKS;
+UPDATE MARKS 
+SET S1 = S1 + 5,
+	S2 = S2 + 5
+WHERE STDID = 102;
+SELECT * FROM MARKS
+WHERE STDID = 102;
+-- 	ADD TOTAL_MARKS COLUMN TO MARKS TABLE
+ALTER TABLE MARKS ADD COLUMN TOTAL_MARKS INT GENERATED ALWAYS AS (S1+S2+S3)STORED AFTER S3;
+SELECT *FROM MARKS
